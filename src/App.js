@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import FormAction from './Components/FormAction';
+import Home from './Components/Home';
+import NavBar from './Components/NavBar';
+
+import { useState } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 
 function App() {
+
+  const [userDetails, setUserDetails] = useState([]);
+  const updateUserDetails = (newUser) => {
+    setUserDetails([...userDetails, newUser]);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <BrowserRouter>
+        <NavBar />
+        <Routes>
+          <Route path="/" element = {<Home userDetails={userDetails}/>} />
+          <Route path="/FormAction" element = {<FormAction updateUserDetails={updateUserDetails}/>}  />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
